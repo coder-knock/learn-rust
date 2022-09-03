@@ -73,3 +73,11 @@ cargo check
 在不生成二进制文件的情况下构建项目【比较快】
 ## cargo 另一个有点：不同平台统一
 ## 文档地址 doc.rust-lang.org/cargo
+## cargo update
+Cargo.lock 会保留版本，所以可以确保编译医疗不会有问题（如果不存在该文件第一次会生成，使用依赖的版本可能会是最新的）
+```shell
+cargo update
+    Updating crates.io index
+    Updating rand v0.8.4 -> v0.8.5
+```
+更新会修改 Cargo.lock 中对应版本
