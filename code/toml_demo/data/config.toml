@@ -1,0 +1,6 @@
+ip = "127.0.0.1"
+port = 8090
+
+[keys]
+github = "xxxxxxxxxxxxxxxxx"
+travis = "yyyyyyyyyyyyyyyyy"
