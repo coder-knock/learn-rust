@@ -1,5 +1,6 @@
 use std::cmp::Ordering;
 use std::io;
+
 use rand::prelude::*;
 
 fn main() {
@@ -18,6 +19,7 @@ fn main() {
             Ok(num) => num,
             Err(_) => continue,
         };
+        // 进行比较，并根据不同结果输出不同信息
         match guess.cmp(&secret_number) {
             Ordering::Less => println!("Too small"),
             Ordering::Greater => println!("Too big"),
