@@ -3,9 +3,9 @@ use std::convert::Infallible;
 use std::sync::Arc;
 
 use serde::{Deserialize, Serialize};
-use warp::{Filter, reject, Rejection, reply, Reply};
+use warp::{reject, reply, Filter, Rejection, Reply};
 
-use auth::{Role, with_auth};
+use auth::{with_auth, Role};
 use error::Error::*;
 
 mod auth;
@@ -59,7 +59,7 @@ async fn main() {
     warp::serve(routes).run(([0, 0, 0, 0], 8000)).await;
 }
 
-fn with_users(users: Users) -> impl Filter<Extract=(Users, ), Error=Infallible> + Clone {
+fn with_users(users: Users) -> impl Filter<Extract = (Users,), Error = Infallible> + Clone {
     warp::any().map(move || users.clone())
 }
 

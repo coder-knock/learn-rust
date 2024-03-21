@@ -1,12 +1,12 @@
 use std::fmt;
 
 use chrono::prelude::*;
-use jsonwebtoken::{Algorithm, decode, DecodingKey, encode, EncodingKey, Header, Validation};
+use jsonwebtoken::{decode, encode, Algorithm, DecodingKey, EncodingKey, Header, Validation};
 use serde::{Deserialize, Serialize};
 use warp::{
-    Filter,
     filters::header::headers_cloned,
-    http::header::{AUTHORIZATION, HeaderMap, HeaderValue}, reject, Rejection,
+    http::header::{HeaderMap, HeaderValue, AUTHORIZATION},
+    reject, Filter, Rejection,
 };
 
 use crate::{error::Error, Result, WebResult};
@@ -45,7 +45,7 @@ struct Claims {
     exp: usize,
 }
 
-pub fn with_auth(role: Role) -> impl Filter<Extract=(String, ), Error=Rejection> + Clone {
+pub fn with_auth(role: Role) -> impl Filter<Extract = (String,), Error = Rejection> + Clone {
     headers_cloned()
         .map(move |headers: HeaderMap<HeaderValue>| (role.clone(), headers))
         .and_then(authorize)
@@ -75,7 +75,7 @@ async fn authorize((role, headers): (Role, HeaderMap<HeaderValue>)) -> WebResult
                 &DecodingKey::from_secret(JWT_SECRET),
                 &Validation::new(Algorithm::HS512),
             )
-                .map_err(|_| reject::custom(Error::JWTTokenError))?;
+            .map_err(|_| reject::custom(Error::JWTTokenError))?;
 
             if role == Role::Admin && Role::from_str(&decoded.claims.role) != Role::Admin {
                 return Err(reject::custom(Error::NoPermissionError));

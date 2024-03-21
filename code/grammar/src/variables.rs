@@ -1,4 +1,3 @@
-use std::intrinsics::try;
 use std::io;
 
 fn main() {
