@@ -10,3 +10,6 @@ edition = "2021"
 [[bin]]
 name = "variables"
 path = "src/variables.rs"
+[[bin]]
+name = "closures"
+path = "src/closures.rs"

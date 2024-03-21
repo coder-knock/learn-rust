@@ -1,3 +1,5 @@
+mod closures;
+
 use std::io;
 
 fn main() {
